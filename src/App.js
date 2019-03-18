@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import './App.css';
 import CardForm from "./CardForm";
 import Cards from "./Cards";
 import { Container, Header, Button, Icon, } from "semantic-ui-react";
+import { Route, Switch } from 'react-router-dom';
+import Home from './components/Home';
+import About from './components/About';
+import Navbar from "./components/Navbar";
+
+
 
 class App extends Component {
   state = {
     cards: [
       {id: 1, front:"What is is my favorite color? ", back:"Grey" },
       {id: 2, front:"What is is my favorite basketball team? ", back:"Utah Jazz" },
-      {id: 3, front:"What is is my car? ", back:"1968 Chevy Nova SS" },
+      {id: 3, front:"What is is my car? ", back:"1969 Chevy Nova SS" },
     ],
     showForm: false,
   };
@@ -33,6 +39,8 @@ class App extends Component {
 
   render() {
     return (
+      <Fragment>
+      <Navbar />
       <Container textAlign="center" style={{ paddingTop: "25px", }}>
         <Header as="h1">React Flash Cards </Header>
         <br />
@@ -47,7 +55,13 @@ class App extends Component {
           cardList={this.state.cards} 
           remove={this.removeCard} 
         />
+        <Switch>
+        <Route exact path="/" component={Home} />
+        <Route exact path="/about" component={About} />
+        <Route component={NoMatch} />
+      </Switch>
       </Container>
+      </Fragment>  
     );
   }
 }
